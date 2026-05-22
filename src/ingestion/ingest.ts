@@ -38,6 +38,8 @@ async function processRows(
         if(parsed.transactionId && seenIds.has(parsed.transactionId)) {
             parsed.isFlagged = true;
             parsed.flagReasons.push(`Duplicate transaction_id: "${parsed.transactionId}"`);
+        } else if (parsed.transactionId) {
+            seenIds.add(parsed.transactionId);
         }
 
         if(parsed.transactionId) {

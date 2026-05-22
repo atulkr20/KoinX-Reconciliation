@@ -6,7 +6,7 @@ A transaction reconciliation engine that ingests crypto transaction data from tw
 
 ### Prerequisites
 - Node.js v18+
-- Docker (for MongoDB)
+- MongoDB running locally or a MongoDB Atlas cluster
 
 ### Steps
 
@@ -21,18 +21,17 @@ A transaction reconciliation engine that ingests crypto transaction data from tw
    npm install
 ```
 
-3. Create a `.env` file in the root
+3. Create a `.env` file in the root by copying `.env.example`
 ```env
    PORT=3000
-   MONGODB_URI=mongodb://localhost:27017/koinx_reconciliation
+   MONGODB_URI=mongodb://127.0.0.1:27017/koinx_reconciliation
    TIMESTAMP_TOLERANCE_SECONDS=300
    QUANTITY_TOLERANCE_PCT=0.01
 ```
 
 4. Start MongoDB
-```bash
-   docker-compose up -d
-```
+- If you are using local MongoDB on Windows, start the MongoDB service.
+- If you are using Atlas, paste the Atlas connection string into `MONGODB_URI`.
 
 5. Add the two CSV files inside the `data/` folder
 data/user_transactions.csv

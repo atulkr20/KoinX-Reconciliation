@@ -6,7 +6,7 @@ export interface IReconciliationRun extends Document {
     status: 'pending' | 'processing' | 'completed' | 'failed';
     config: {
         timestampToleranceSeconds: number;
-        qunatityTolerancePct: number;
+        quantityTolerancePct: number;
     };
 
     summary: {
@@ -14,7 +14,7 @@ export interface IReconciliationRun extends Document {
         conflicting: number;
         unmatchedUser: number;
         unmatchedExchange: number;
-        falggedRows: number;
+        flaggedRows: number;
     };
     errorMessage?: string;
 }
@@ -28,8 +28,8 @@ const ReconciliationRunSchema = new Schema<IReconciliationRun>({
         default: 'pending', 
     },
     config: {
-        timeStampToleranceSeconds: { type: Number, required: true },
-        qunaittyTolerancePct: { type: Number, required: true},
+        timestampToleranceSeconds: { type: Number, required: true },
+        quantityTolerancePct: { type: Number, required: true},
     },
     summary: {
         matched: { type: Number, default: 0},

@@ -123,10 +123,9 @@ export function matchTransactions(
     // Mark this exchange txn as  used regardless of matched or conflicting
     matchedExchangeIds.add(bestMatch._id.toString());
     }
-    // Noe whatever is left in the exchange file was never matched
-}
+    // Now whatever is left in the exchange file was never matched
 
- for (const exTxn of exchangeTxns) {
+  for (const exTxn of exchangeTxns) {
     if (matchedExchangeIds.has(exTxn._id.toString())) continue;
     if (exTxn.isFlagged) {
       results.push({

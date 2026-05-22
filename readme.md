@@ -54,6 +54,8 @@ GET /report/:runId/unmatched
 
 A CSV report is also saved locally to `reports/<runId>.csv` after each run.
 
+For a quick demo, see `sample-report.csv` in the repo root.
+
 ## Configuration
 
 | Variable | Default | Description |

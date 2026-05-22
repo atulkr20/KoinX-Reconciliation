@@ -18,7 +18,7 @@ const ReportEntrySchema = new Schema<IReportEntry>({
     },
     reason: { type: String, required: true}, 
     userTransaction: { type: Schema.Types.Mixed, default: null}, 
-    exchangeTransaction: { Type: Schema.Types.Mixed, default: null},
+    exchangeTransaction: { type: Schema.Types.Mixed, default: null},
 });
 
 export const ReportEntry = mongoose.model<IReportEntry>('ReportEntry', ReportEntrySchema);

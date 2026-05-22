@@ -7,7 +7,7 @@ export interface MatchConfig {
 }
 
 export interface MatchResult {
-    category: 'Matched' | 'conflicting' | 'unmatched_user' | 'unmatched_exchange';
+  category: 'matched' | 'conflicting' | 'unmatched_user' | 'unmatched_exchange';
     reason: string;
     userTransaction: ITransaction | null;
     exchangeTransaction: ITransaction | null;
@@ -105,7 +105,7 @@ export function matchTransactions(
 
     if (qtyMatches) {
       results.push({
-        category: 'Matched',
+        category: 'matched',
         reason: 'Asset, type, timestamp, and quantity all within tolerance',
         userTransaction: userTxn,
         exchangeTransaction: bestMatch,

@@ -6,6 +6,7 @@ import reportRouter from './api/report';
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.type('html').send(`
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
           input { padding: 8px 10px; min-width: 260px; }
           a.button, button { display: inline-block; padding: 8px 12px; border: 1px solid #333; border-radius: 8px; text-decoration: none; color: #111; background: #fff; cursor: pointer; }
           a.button:hover, button:hover { background: #f4f4f4; }
+          a.button.disabled { pointer-events: none; opacity: 0.5; }
           .muted { color: #555; }
         </style>
       </head>
@@ -45,9 +47,9 @@ app.get('/', (req, res) => {
           <p class="muted">Paste a <code>runId</code> from <code>/reconcile</code> to open the report links.</p>
           <div class="row">
             <input id="runIdInput" type="text" placeholder="runId here" />
-            <a id="fullReportLink" class="button" href="/report/demo">Open full report</a>
-            <a id="summaryLink" class="button" href="/report/demo/summary">Open summary</a>
-            <a id="unmatchedLink" class="button" href="/report/demo/unmatched">Open unmatched</a>
+            <a id="fullReportLink" class="button disabled" href="#">Open full report</a>
+            <a id="summaryLink" class="button disabled" href="#">Open summary</a>
+            <a id="unmatchedLink" class="button disabled" href="#">Open unmatched</a>
           </div>
         </div>
 
@@ -59,9 +61,23 @@ app.get('/', (req, res) => {
 
           function updateLinks() {
             const runId = (input.value || 'demo').trim();
-            fullReportLink.href = '/report/' + encodeURIComponent(runId);
-            summaryLink.href = '/report/' + encodeURIComponent(runId) + '/summary';
-            unmatchedLink.href = '/report/' + encodeURIComponent(runId) + '/unmatched';
+            const hasRunId = runId.length > 0 && runId !== 'demo';
+
+            if (hasRunId) {
+              fullReportLink.href = '/report/' + encodeURIComponent(runId);
+              summaryLink.href = '/report/' + encodeURIComponent(runId) + '/summary';
+              unmatchedLink.href = '/report/' + encodeURIComponent(runId) + '/unmatched';
+              fullReportLink.classList.remove('disabled');
+              summaryLink.classList.remove('disabled');
+              unmatchedLink.classList.remove('disabled');
+            } else {
+              fullReportLink.href = '#';
+              summaryLink.href = '#';
+              unmatchedLink.href = '#';
+              fullReportLink.classList.add('disabled');
+              summaryLink.classList.add('disabled');
+              unmatchedLink.classList.add('disabled');
+            }
           }
 
           input.addEventListener('input', updateLinks);
